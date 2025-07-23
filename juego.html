@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de Letras</title>
+  <style>
+    body {
+      background: url('https://img.freepik.com/vector-gratis/ilustracion-animales-bosque-acuarela_52683-94104.jpg?semt=ais_hybrid&w=740') no-repeat center center fixed;
+        background-size: cover;
+      font-family: 'Comic Sans MS', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .letras {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .letra {
+      background-color: #1976d2;
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      margin: 10px;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+      min-width: 60px;
+    }
+    button {
+      margin: 30px 10px;
+      font-size: 24px;
+      padding: 10px 30px;
+      background-color: #00bfa5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background-color: #008e76;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mia ¡aprendamos las letras!</h1>
+  <div id="letras" class="letras"></div>
+  <br>
+  <button onclick="siguiente()">SIGUIENTE</button>
+  <button onclick="hablar()">🔊 OÍR PALABRA</button>
+
+  <script>
+    const palabras = [
+      // Personas y familia
+      "mamá", "papá", "abuela", "abuelo", "hermana", "hermano", "bebé", "tía", "tío", "prima",
+      "primo", "amigo", "niña", "niño", "señora", "señor", "maestra", "doctor", "vecino", "gente",
+
+      // Animales
+      "perro", "gato", "pez", "pájaro", "vaca", "caballo", "cerdo", "oveja", "cabra", "gallina",
+      "pato", "ratón", "león", "tigre", "elefante", "jirafa", "mono", "oso", "rana", "cangrejo",
+      "tortuga", "zorro", "lobo", "conejo", "ardilla",
+
+      // Naturaleza
+      "sol", "luna", "estrella", "cielo", "nube", "lluvia", "nieve", "viento", "árbol", "flor",
+      "hoja", "río", "mar", "montaña", "piedra",
+
+      // Casa y objetos
+      "cama", "mesa", "silla", "vaso", "cuchara", "plato", "tenedor", "cuchillo", "puerta", "ventana",
+      "sofá", "lámpara", "televisión", "toalla", "baño", "cocina", "juguete", "libro", "armario", "reloj",
+
+      // Ropa
+      "zapato", "calcetín", "pantalón", "camisa", "vestido", "abrigo", "gorro", "bufanda", "pijama", "guante",
+
+      // Transportes
+      "coche", "autobús", "tren", "avión", "barco", "bicicleta", "moto", "camión", "tractor", "patinete",
+
+      // Colores y formas
+      "rojo", "azul", "verde", "amarillo", "naranja", "rosa", "morado", "blanco", "negro", "gris",
+      "círculo", "cuadrado", "triángulo", "estrella", "corazón",
+
+      // Números
+      "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez",
+
+      // Días y tiempo
+      "día", "noche", "mañana", "tarde", "ayer", "hoy", "mañana", "rápido", "despacio", "pronto",
+
+      // Emociones y cualidades
+      "feliz", "triste", "enojado", "cansado", "contento", "bueno", "malo", "grande", "pequeño", "bonito",
+
+      // Verbos comunes
+      "comer", "beber", "dormir", "correr", "saltar", "andar", "hablar", "reír", "llorar", "jugar",
+      "leer", "escribir", "pintar", "cantar", "bailar", "abrir", "cerrar", "subir", "bajar", "mirar",
+
+      // Comida
+      "pan", "agua", "leche", "jugo", "fruta", "manzana", "plátano", "fresa", "uva", "naranja",
+      "huevo", "queso", "arroz", "sopa", "carne", "pescado", "yogur", "helado", "galleta", "chocolate",
+
+      // Misceláneos útiles
+      "sí", "no", "por favor", "gracias", "hola", "adiós", "casa", "escuela", "calle", "parque",
+      "pelota", "lápiz", "papel", "dibujo", "muñeca"
+    ];
+
+    let palabraActual = "";
+
+    function mostrarPalabra(palabra) {
+      const contenedor = document.getElementById("letras");
+      contenedor.innerHTML = "";
+      palabra.split('').forEach(letra => {
+        const div = document.createElement("div");
+        div.className = "letra";
+        div.textContent = letra.toUpperCase();
+        contenedor.appendChild(div);
+      });
+      palabraActual = palabra;
+    }
+
+    function siguiente() {
+      const aleatoria = palabras[Math.floor(Math.random() * palabras.length)];
+      mostrarPalabra(aleatoria);
+    }
+
+    function hablar() {
+      const msg = new SpeechSynthesisUtterance(palabraActual);
+      msg.lang = "es-ES";
+      msg.rate = 0.6;
+      window.speechSynthesis.speak(msg);
+    }
+
+    window.onload = () => siguiente();
+  </script>
+</body>
+</html>
